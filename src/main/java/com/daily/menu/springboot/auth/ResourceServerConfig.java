@@ -28,9 +28,12 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/api/registro", "/api/registro/page/**", "/api/uploads/img/**", "/images", "api/usuario/listar").permitAll()
-				.antMatchers(HttpMethod.POST,  "/api/usuario/registrar", "/send/email")
+				.antMatchers(HttpMethod.GET, "/api/registro", "/api/registro/page/**", "/api/uploads/img/**", "/images", "/api/usuario/{id}", "/api/registro/pais").permitAll()
+				.antMatchers(HttpMethod.POST,  "/api/usuario/registrar", "/send/email" , "/oauth/token")
 				.permitAll()
+				.antMatchers(HttpMethod.PUT,  "/api/usuario/{id}")
+				.permitAll()
+				
 				/* 
 				 *  SE ASINGO A CADA METODO EN REGISTRO
 				 * .antMatchers(HttpMethod.GET, "/api/registro/{id}").hasAnyRole("ROLE USER",

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
@@ -23,7 +24,9 @@ import javax.validation.constraints.NotEmpty;
 public class Usuario implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	// @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_seq")
+	  @SequenceGenerator(sequenceName = "seq_usuario", allocationSize = 1, name = "usuario_seq")
 	private long id;
 
 	
@@ -31,7 +34,7 @@ public class Usuario implements Serializable {
 	@Email(message = "No es una direccion de correo valida")
 	@Column(nullable = false, unique = true) // nullable = no guardar vacio , unique = no se debe repetir
 
-	private String username;
+	private String email;
 	@Column(length = 60)
 	private String password;
 	private String enabled;
@@ -42,6 +45,20 @@ public class Usuario implements Serializable {
 	private Long numero_documento;
 	private Boolean terminos;
 	private String foto;
+	
+	private String Pais;
+	private String ocupacion;
+	private String nombreEmpresa;
+	private String telefono;
+	private String direccion;
+	private String cuidad;
+	private String estado;
+	private String codigoPostal;
+	private String linkedink;
+	private String  facebook;
+	private String  instagram;
+	private String  twittter;
+	
 	//@Column(unique = true)
 	//private String email;
 
@@ -53,8 +70,9 @@ public class Usuario implements Serializable {
 	 * 
 	 * 
 	 */
-
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	
+	//(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.MERGE,fetch= FetchType.LAZY)
 	// para asociar con role
 	@JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "role_id"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "usuario_id", "role_id" }) })
@@ -68,12 +86,13 @@ public class Usuario implements Serializable {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -156,6 +175,108 @@ public class Usuario implements Serializable {
 
 	public void setFoto(String foto) {
 		this.foto = foto;
+	}
+
+
+
+	public String getOcupacion() {
+		return ocupacion;
+	}
+
+	public void setOcupacion(String ocupasion) {
+		this.ocupacion = ocupasion;
+	}
+
+	public String getNombreEmpresa() {
+		return nombreEmpresa;
+	}
+
+	public void setNombreEmpresa(String nombreEmpresa) {
+		this.nombreEmpresa = nombreEmpresa;
+	}
+
+	
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getCuidad() {
+		return cuidad;
+	}
+
+	public void setCuidad(String cuidad) {
+		this.cuidad = cuidad;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(String codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
+
+	public String getLinkedink() {
+		return linkedink;
+	}
+
+	public void setLinkedink(String linkedink) {
+		this.linkedink = linkedink;
+	}
+
+	public String getFacebook() {
+		return facebook;
+	}
+
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+
+	public String getInstagram() {
+		return instagram;
+	}
+
+	public void setInstagram(String instagram) {
+		this.instagram = instagram;
+	}
+
+	public String getTwittter() {
+		return twittter;
+	}
+
+	public void setTwittter(String twittter) {
+		this.twittter = twittter;
+	}
+
+
+
+	public String getPais() {
+		return Pais;
+	}
+
+	public void setPais(String pais) {
+		Pais = pais;
 	}
 
 

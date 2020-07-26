@@ -1,7 +1,5 @@
 package com.daily.menu.springboot.controllers;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,11 +8,9 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -27,10 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.daily.menu.springboot.models.apirest.models.service.IregistroServiceImp;
 import com.daily.menu.springboot.models.apirest.models.service.UploadFileServiceImpl;
@@ -214,9 +208,9 @@ public class RegistroRestController {
 	/**
 	 * CARGAR FOTO se complemnta con dos lineas en aplication.properties
 	 */
-	@Secured({"ROLE_ADMIN", "ROLE_USER"})
+	/*@Secured({"ROLE_ADMIN", "ROLE_USER"})
 	@PostMapping("/registro/upload")
-	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id) {
+	 public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id) {
 		Map<String, Object> response = new HashMap<>();
 
 		registro registro = registroService.finById(id);
@@ -244,14 +238,15 @@ public class RegistroRestController {
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
-	}
+	} 
+	*/
 
 	/**
 	 * CARGAR FOTO para mostrar
 	 */
 
-	@GetMapping("uploads/img/{nombreFoto:.+}")
-	public ResponseEntity<Resource> verFoto(@PathVariable String nombreFoto) {
+/*	@GetMapping("uploads/img/{nombreFoto:.+}")
+	 public ResponseEntity<Resource> verFoto(@PathVariable String nombreFoto) {
 
 		Resource recurso = null;
 
@@ -267,7 +262,7 @@ public class RegistroRestController {
 
 		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 	}
-
+*/
 	
 	/**
 	 * LISTAR regiones
@@ -282,7 +277,7 @@ public class RegistroRestController {
 	 * LISTAR PAISES
 	 */
 	@GetMapping("/registro/pais")
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	public List<Pais> listarPais() {
 		return registroService.findAllPais();
 	}

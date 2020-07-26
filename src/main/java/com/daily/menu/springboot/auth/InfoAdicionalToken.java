@@ -31,7 +31,9 @@ public class InfoAdicionalToken implements TokenEnhancer {
 
 		info.put("nombre", usuario.getNombre());
 	     info.put("apellido", usuario.getApellido());
-		info.put("email", usuario.getUsername());
+		info.put("email", usuario.getEmail());
+		info.put("id", usuario.getId());
+		info.put("foto", usuario.getFoto());
 		((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
 
 		return accessToken;

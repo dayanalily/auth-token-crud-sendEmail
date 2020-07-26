@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -16,9 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.daily.menu.springboot.models.apirest.models.dao.IUsuarioDao;
-import com.daily.menu.springboot.models.apirest.models.dao.IregistroDao;
+import com.daily.menu.springboot.models.entity.Pais;
 import com.daily.menu.springboot.models.entity.Usuario;
-import com.daily.menu.springboot.models.entity.registro;
 
 @Service
 public class UsuarioService implements IUsuarioService, UserDetailsService {
@@ -26,18 +27,18 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 	private Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 	@Autowired
 	private IUsuarioDao usuarioDao;
+
 	
 	@Override
 	@Transactional(readOnly = true)
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Usuario usuario = usuarioDao.findByUsername(username);
-	
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		Usuario usuario = usuarioDao.findByEmail(email);
 
 
 		if (usuario == null) {
-			logger.error("Error en el login: no existe el usuario encontrado '" + username + "' en el sistema!");
+			logger.error("Error en el login: no existe el usuario encontrado '" + email + "' en el sistema!");
 			throw new UsernameNotFoundException(
-					"Error en el login: no existe el usuario '" + username + "' en el sistema!");
+					"Error en el login: no existe el usuario '" + email + "' en el sistema!");
 		}
 
 		List<GrantedAuthority> authorities = usuario.getRoles().stream()
@@ -45,13 +46,13 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 				.peek(authority -> logger.info("Role:  " + authority.getAuthority())).collect(Collectors.toList());
 
 		// despues de password usuario.getEnabled(), revisar curso
-		return new User(usuario.getUsername(), usuario.getPassword() ,true, true, true, true, authorities);
+		return new User(usuario.getEmail(), usuario.getPassword() ,true, true, true, true, authorities);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Usuario findByUsername(String username) {
-		return usuarioDao.findByUsername(username);
+	public Usuario findByUsername(String email) {
+		return usuarioDao.findByEmail(email);
 	}
 
 	@Override
@@ -61,10 +62,42 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Usuario> findall() {
 	
 		return (List<Usuario>) usuarioDao.findAll();
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Usuario finById(Long id) {
+		// TODO Auto-generated method stub
+		return usuarioDao.findById(id).orElse(null);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Usuario> findall(Pageable pegeable) {
+		// TODO Auto-generated method stub
+		return  usuarioDao.findAll(pegeable);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public void findByDelete(Long id) {
+		// TODO Auto-generated method stub
+		return;
+	}
+
+
+
+	
+
+	
+
+	
+
+
 	
 	
 	 

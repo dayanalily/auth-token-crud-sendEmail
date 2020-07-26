@@ -43,12 +43,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory().withClient("angularapp").secret(passwordEncoder.encode("12345")).scopes("read", "write")
-				.authorizedGrantTypes("password", "refresh_token").accessTokenValiditySeconds(3600)
-				.refreshTokenValiditySeconds(3600);
+				.authorizedGrantTypes("password", "refresh_token").accessTokenValiditySeconds(86400)
+				.refreshTokenValiditySeconds(86400);
 	}
 
 	/*
-	 * se encarga de validar el tockens
+	 * se encarga de validar el tockens 
 	 */
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
@@ -56,9 +56,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
 
 		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(infoAdicionalToken, accessTokenConverter()));
-
-		endpoints.authenticationManager(authenticationManager).tokenStore(tokenStore())
-				.accessTokenConverter(accessTokenConverter()).tokenEnhancer(tokenEnhancerChain);
+		endpoints.tokenStore(tokenStore())
+        .accessTokenConverter(accessTokenConverter())
+        .tokenEnhancer(tokenEnhancerChain)
+        .authenticationManager(authenticationManager);
+//		endpoints.authenticationManager(authenticationManager).tokenStore(tokenStore())
+//				.accessTokenConverter(accessTokenConverter()).tokenEnhancer(tokenEnhancerChain);
 
 	}
 

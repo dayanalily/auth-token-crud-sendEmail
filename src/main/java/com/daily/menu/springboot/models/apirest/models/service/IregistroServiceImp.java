@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 import com.daily.menu.springboot.models.entity.Pais;
 import com.daily.menu.springboot.models.entity.Region;
-import com.daily.menu.springboot.models.entity.Usuario;
 import com.daily.menu.springboot.models.entity.registro;
 
 
