@@ -26,5 +26,6 @@ public class MenuApplication implements CommandLineRunner{
 			System.out.println("justin   " + passwordBcrypt);
 		}
 	}
+	
 
 }
