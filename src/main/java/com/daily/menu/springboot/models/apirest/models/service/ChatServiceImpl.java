@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bolsadeideas.springboot.backend.chat.models.documents.Mensaje;
 import com.daily.menu.springboot.models.apirest.models.dao.ChatRepository;
+import com.daily.menu.springboot.models.entity.Mensaje;
 
 @Service
 public class ChatServiceImpl implements ChatService{

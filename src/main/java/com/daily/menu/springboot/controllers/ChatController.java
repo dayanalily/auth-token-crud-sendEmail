@@ -9,8 +9,8 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
-import com.bolsadeideas.springboot.backend.chat.models.documents.Mensaje;
 import com.daily.menu.springboot.models.apirest.models.service.ChatService;
+import com.daily.menu.springboot.models.entity.Mensaje;
 
 @Controller
 public class ChatController {

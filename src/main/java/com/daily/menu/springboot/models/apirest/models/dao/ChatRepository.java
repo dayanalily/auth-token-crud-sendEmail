@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.bolsadeideas.springboot.backend.chat.models.documents.Mensaje;
+import com.daily.menu.springboot.models.entity.Mensaje;
 
 public interface ChatRepository extends MongoRepository<Mensaje, String>{
 	

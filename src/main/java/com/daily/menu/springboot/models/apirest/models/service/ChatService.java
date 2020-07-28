@@ -2,7 +2,8 @@ package com.daily.menu.springboot.models.apirest.models.service;
 
 import java.util.List;
 
-import com.bolsadeideas.springboot.backend.chat.models.documents.Mensaje;
+import com.daily.menu.springboot.models.entity.Mensaje;
+
 
 public interface ChatService {
 
